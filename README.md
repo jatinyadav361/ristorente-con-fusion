@@ -68,3 +68,11 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+### Using bootstrap css to style our react application
+`npm install bootstrap@4.0.0 --save`
+
+### bootstrap js components cannot be used directly with react so all the bootstrap js components are re-implemented into react components through reactstrap npm package so that it can be used with react
+`npm install reactstrap@5.0.0 --save`
+`npm install react-popper@0.9.2 --save`
