@@ -76,3 +76,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 ### bootstrap js components cannot be used directly with react so all the bootstrap js components are re-implemented into react components through reactstrap npm package so that it can be used with react
 `npm install reactstrap@5.0.0 --save`
 `npm install react-popper@0.9.2 --save`
+
+# Imperative and Declarative Programming
+```
+    Imperative programming: telling the “machine” how to do something, and as a result what you want to happen will happen.
+    Declarative programming: telling the “machine”1 what you would like to happen, and let the computer figure out how to do it.
+    http://latentflip.com/imperative-vs-declarative#examples-of-imperative-and-declarative-code
+```
