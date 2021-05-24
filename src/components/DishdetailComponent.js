@@ -1,6 +1,6 @@
 import { React} from "react";
-
-import {Card, CardBody, CardImg, CardTitle, CardText } from 'reactstrap';
+import {Card, CardBody, CardImg, CardTitle, CardText, Breadcrumb ,BreadcrumbItem} from 'reactstrap';
+import {Link} from 'react-router-dom';
 
 // 1st way of defining functional components
 function CommentsList({comment}) {
@@ -29,13 +29,23 @@ function DishItemCard({dish}) {
 // 2nd way of defining functional components
 const Dishdetail = (props) => {
     if(props.dish != null) {
-        var listComments = props.dish.comments.map((comment) => {
+        var listComments = props.comments.map((comment) => {
             return (
                 <CommentsList comment={comment} />
             );
         });
         return (
             <div className="container">
+                <div className="row">
+                    <Breadcrumb>
+                        <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
+                    </Breadcrumb>
+                    <div className="col-12">
+                        <h3>{props.dish.name}</h3>
+                        <hr />
+                    </div>
+                </div>
                 <div className="row">
                    <div className="col-12 col-md-5 m-1">
                        <DishItemCard dish={props.dish} />
