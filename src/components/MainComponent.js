@@ -10,6 +10,7 @@ import {COMMENTS} from '../shared/comments';
 import Header from './HeaderComponent';
 import Footer from './FooterComponene';
 import Contact from './ContactComponent';
+import About from './AboutComponent';
 
 class Main extends Component {
   constructor(props) {
@@ -45,6 +46,7 @@ class Main extends Component {
       <Header />
       <Switch>
         <Route path="/home" component={HomeScreen} />
+        <Route exact path="/aboutus" component={()=> <About leaders={this.state.leaders}/>}/>
         <Route exact path="/menu" component={() => <Menu dishes={this.state.dishes} />} />
         <Route path="/menu/:dishId" component={DishDetailScreen}/>
         <Route exact path="/contactus" component={Contact} />
