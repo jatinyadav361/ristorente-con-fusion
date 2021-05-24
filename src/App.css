@@ -27,11 +27,14 @@
 address{
     font-size:80%;
     margin:0px;
-    color:floralwhite;
 }
 
 .footer a {
     color: floralwhite;
+}
+
+.footer address {
+    color:floralwhite;
 }
 
 .navbar-dark {
