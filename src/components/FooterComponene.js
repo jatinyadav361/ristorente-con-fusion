@@ -27,7 +27,7 @@ function Footer() {
                             confusion@food.net</a>
                         </address>
                     </div>
-                    <div className="col-12 col-sm-4 align-self-center">
+                    <div className="col-12 col-sm-4 align-self-center mt-2">
                         <div className="text-center">
                             <a className="btn btn-social-icon btn-google" target="_blank" rel="noreferrer" href="http://google.com/+"><i className="fa fa-google-plus"></i></a>
                             <a className="btn btn-social-icon btn-facebook" target="_blank" rel="noreferrer" href="http://www.facebook.com/profile.php?id="><i className="fa fa-facebook"></i></a>
@@ -38,7 +38,7 @@ function Footer() {
                         </div>
                     </div>
                 </div>
-                <div className="row justify-content-center">             
+                <div className="row justify-content-center mt-2">             
                     <div className="col-auto">
                         <p>© Copyright 2018 Ristorante Con Fusion</p>
                     </div>

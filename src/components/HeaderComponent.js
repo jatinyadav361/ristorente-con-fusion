@@ -68,7 +68,7 @@ class Header extends Component {
                             </Nav>
                             <Nav className="ml-auto"  navbar>
                                 <NavItem>
-                                    <Button type="button" onClick={this.toggleModal}>
+                                    <Button type="button" color="#25502e" onClick={this.toggleModal}>
                                         <span className="fa fa-sign-in fa-lg"></span> Login
                                     </Button>
                                 </NavItem>
