@@ -53,7 +53,7 @@ class Contact extends Component {
                     <div className="col-12 col-sm-6 offset-sm-1">
                         <h5>Map of our Location</h5>
                     </div>
-                    <div className="col-12 col-sm-11 offset-sm-1">
+                    <div className="col-12 col-sm-11 offset-sm-1 mt-2">
                         <div className="btn-group" role="group">
                             <a role="button" className="btn btn-primary" href="tel:+85212345678"><i className="fa fa-phone"></i> Call</a>
                             <a role="button" className="btn btn-info" href="skype.com"><i className="fa fa-skype"></i> Skype</a>
@@ -71,7 +71,7 @@ class Contact extends Component {
                             <Row className="form-group">
                                 <Label htmlFor="firstname" md={2}>First Name</Label>
                                 <Col md={10}>
-                                    <Control.text model=".firstname" id="firstname" name="firstname"
+                                    <Control model=".firstname" id="firstname" name="firstname"
                                         placeholder="First Name"
                                         className="form-control"
                                         validators={{
@@ -93,7 +93,7 @@ class Contact extends Component {
                             <Row className="form-group">
                                 <Label htmlFor="lastname" md={2}>Last Name</Label>
                                 <Col md={10}>
-                                    <Control.text model=".lastname" id="lastname" name="lastname"
+                                    <Control model=".lastname" id="lastname" name="lastname"
                                         placeholder="Last Name"
                                         className="form-control"
                                         validators={{
@@ -115,7 +115,7 @@ class Contact extends Component {
                             <Row className="form-group">
                                 <Label htmlFor="telnum" md={2}>Contact Tel.</Label>
                                 <Col md={10}>
-                                    <Control.text model=".telnum" id="telnum" name="telnum"
+                                    <Control model=".telnum" id="telnum" name="telnum"
                                         placeholder="Tel. Number"
                                         className="form-control"
                                         validators={{
@@ -138,7 +138,7 @@ class Contact extends Component {
                             <Row className="form-group">
                                 <Label htmlFor="email" md={2}>Email</Label>
                                 <Col md={10}>
-                                    <Control.text model=".email" id="email" name="email"
+                                    <Control model=".email" id="email" name="email"
                                         placeholder="Email"
                                         className="form-control"
                                         validators={{
@@ -159,27 +159,27 @@ class Contact extends Component {
                             <Row className="form-group">
                                 <Col md={{size: 6, offset: 2}}>
                                     <div className="form-check">
-                                        <Label check>
-                                            <Control.checkbox model=".agree" name="agree"
+                                        <Label check for="agree">
+                                            <Control.checkbox model=".agree" name="agree" id="agree"
                                                 className="form-check-input"
-                                                 /> {' '}
-                                                <strong>May we contact you?</strong>
+                                            /> {' '}
+                                            <strong>May we contact you?</strong>
                                         </Label>
                                     </div>
                                 </Col>
                                 <Col md={{size: 3, offset: 1}}>
-                                    <Control.select model=".contactType" name="contactType"
+                                    <Control component="select" model=".contactType" name="contactType"
                                         className="form-control">
                                         <option>Select</option>
                                         <option>Tel.</option>
                                         <option>Email</option>
-                                    </Control.select>
+                                    </Control>
                                 </Col>
                             </Row>
                             <Row className="form-group">
                                 <Label htmlFor="message" md={2}>Your Feedback</Label>
                                 <Col md={10}>
-                                    <Control.textarea model=".message" id="message" name="message"
+                                    <Control component="textarea" model=".message" id="message" name="message"
                                         rows="6" className="form-control" />
                                 </Col>
                             </Row>
