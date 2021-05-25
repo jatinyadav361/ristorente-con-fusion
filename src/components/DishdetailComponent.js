@@ -28,7 +28,9 @@ class CommentForm extends Component {
     handleCommentSubmit(values) {
         console.log("Form submitted " + JSON.stringify(values));
         this.toggleModal();
-        alert("Form submitted " + JSON.stringify(values));
+        // to initiate the action upon the user submitting the comment form
+        this.props.addComment(this.props.dishId,values.rating,values.author,values.comment);
+        // alert("Form submitted " + JSON.stringify(values));
     }
 
     render() {
@@ -140,7 +142,7 @@ const Dishdetail = (props) => {
                    <div className="col-12 col-md-5 m-1">
                        <h2>Comments</h2>
                        <div>{listComments}</div>
-                       <CommentForm />
+                       <CommentForm dishId={props.dish.id} addComment={props.addComment}/>
                    </div>
                 </div>
             </div>
