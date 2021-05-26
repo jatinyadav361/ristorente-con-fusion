@@ -1,12 +1,54 @@
 import React, { Component} from "react";
 import {Card, CardBody, CardImg, CardTitle, CardText, Breadcrumb ,BreadcrumbItem, Button, 
-    Modal, ModalHeader, ModalBody, Row, Label} from 'reactstrap';
+    Modal, ModalHeader, ModalBody, Row, Label, Col} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import { LocalForm, Control , Errors } from "react-redux-form";
+import Loading from "./LoadingComponent";
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => (val) && (val.length >= len);
+
+// 1st way of defining functional components
+function DishItemCard({dish}) {
+    return (
+        <div className="col-12 col-md-5 m-1">
+            <Card>
+                <CardImg src={dish.image}></CardImg>
+                <CardBody>
+                    <CardTitle>{dish.name}</CardTitle>
+                    <CardText>{dish.description}</CardText>
+                </CardBody>
+            </Card>
+        </div>
+    );
+}
+
+
+function RenderComments({comments,addComment,dishId}) {
+    if(comments != null) {
+        return (
+            <div className="col-12 col-md-5 m-1">
+                <h4>Comments</h4>
+                <ul className="list-unstyled">
+                    {comments.map((comment) => {
+                        return (
+                            <li key={comment.id}>
+                                <p className="text-primary">{comment.comment}</p>
+                                <p className="text-secondary">-- {comment.author}, {Date(comment.date)}</p>
+                            </li>
+                        );
+                    })}
+                </ul>
+                <CommentForm dishId={dishId} addComment={addComment}/>
+            </div>
+        );
+    } else {
+        return(
+            <div></div>
+        );
+    }
+}
 
 class CommentForm extends Component {
 
@@ -41,47 +83,53 @@ class CommentForm extends Component {
                 </Button>
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Add Comment</ModalHeader>
-                    <ModalBody className="m-3">
+                    <ModalBody>
                         <LocalForm onSubmit={(values) => this.handleCommentSubmit(values)}>
                             <Row className="form-group">
-                                <Label for="rating">Rating</Label>
-                                <Control component="select" className="form-control" model=".rating" name="rating" 
-                                    id="rating">
-                                    <option>Select Rating</option>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </Control>
+                                <Col>
+                                    <Label for="rating">Rating</Label>
+                                    <Control component="select" className="form-control" model=".rating" name="rating" 
+                                        id="rating">
+                                        <option>Select Rating</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </Control>
+                                </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label for="author">Your Name</Label>
-                                <Control className="form-control" model=".author" name="author" id="author"
-                                    placeholder="Your Name"
-                                    validators={
-                                        {
-                                            required,
-                                            maxLength : maxLength(15),
-                                            minLength : minLength(3),
-                                        }
-                                    }
-                                ></Control>
-                                <Errors className="text-danger" model=".author" show="touched" 
-                                    messages={{
-                                        required : 'Required Field ',
-                                        maxLength : 'Must be less than or equal to 15 characters',
-                                        minLength : 'Must be more than 2 characters'
-                                    }}
-                                />
+                                <Col>
+                                    <Label for="author">Your Name</Label>
+                                    <Control className="form-control" model=".author" name="author" id="author"
+                                        placeholder="Your Name"
+                                        validators={
+                                            {
+                                                required,
+                                                maxLength : maxLength(15),
+                                                minLength : minLength(3),
+                                            }
+                                        } />
+                                    <Errors className="text-danger" model=".author" show="touched" 
+                                        messages={{
+                                            required : 'Required Field ',
+                                            maxLength : 'Must be less than or equal to 15 characters',
+                                            minLength : 'Must be more than 2 characters'
+                                        }} />
+                                </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label for="rating">Comment</Label>
-                                <Control component="textarea" className="form-control" model=".comment" name="comment"
-                                    id="comment" rows="6"></Control>
+                                <Col>
+                                    <Label for="rating">Comment</Label>
+                                    <Control component="textarea" className="form-control" model=".comment" name="comment"
+                                        id="comment" rows="6" />
+                                </Col>
                             </Row>
                             <Row className="form-group">
-                                <Button role="submit" color="primary">Submit</Button>
+                                <Col>
+                                    <Button role="submit" color="primary">Submit</Button>
+                                </Col>
                             </Row>
                         </LocalForm>
                     </ModalBody>
@@ -91,38 +139,31 @@ class CommentForm extends Component {
     }
 }
 
-// 1st way of defining functional components
-function CommentsList({comment}) {
-    return (
-        <div id={comment.id}>
-            <div>
-                <p className="text-primary">{comment.comment}</p>
-                <p className="text-secondary">-- {comment.author}, {Date(comment.date)}</p>
-            </div>
-        </div>
-    );
-}
-
-function DishItemCard({dish}) {
-    return (
-        <Card>
-            <CardImg src={dish.image}></CardImg>
-            <CardBody>
-                <CardTitle>{dish.name}</CardTitle>
-                <CardText>{dish.description}</CardText>
-            </CardBody>
-        </Card>
-    );
-}
-
 // 2nd way of defining functional components
 const Dishdetail = (props) => {
-    if(props.dish != null) {
-        var listComments = props.comments.map((comment) => {
-            return (
-                <CommentsList comment={comment} />
-            );
-        });
+    if(props.isLoading) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <div className="col-12 align-self-center">
+                        <Loading />
+                    </div>
+               </div>
+            </div>
+        );
+    }
+    else if(props.errMess) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <div className="col-12 align-self-center">
+                        <h4>{props.errMess}</h4>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+    else if(props.dish != null) {
         return (
             <div className="container">
                 <div className="row">
@@ -136,14 +177,8 @@ const Dishdetail = (props) => {
                     </div>
                 </div>
                 <div className="row">
-                   <div className="col-12 col-md-5 m-1">
-                       <DishItemCard dish={props.dish} />
-                   </div>
-                   <div className="col-12 col-md-5 m-1">
-                       <h2>Comments</h2>
-                       <div>{listComments}</div>
-                       <CommentForm dishId={props.dish.id} addComment={props.addComment}/>
-                   </div>
+                    <DishItemCard dish={props.dish} />
+                    <RenderComments comments={props.comments} addComment={props.addComment} dishId={props.dish.id} />
                 </div>
             </div>
        );

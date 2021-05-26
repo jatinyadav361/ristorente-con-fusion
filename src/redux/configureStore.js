@@ -2,7 +2,11 @@ import { Dishes } from './dishes';
 import { Comments } from './comments';
 import { Promotions } from './promotions';
 import { Leaders } from './leaders';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+//applyMiddleware() sets up a middleware pipeline and returns a store enhancer that is passed to createStore()
+import thunk from 'redux-thunk';
+import logger from 'redux-logger';
+
 
 // Configuring react store
 export const configureStore = () => {
@@ -14,7 +18,8 @@ export const configureStore = () => {
             comments : Comments,
             leaders : Leaders,
             promotions : Promotions
-        })
+        }),
+        applyMiddleware(thunk,logger),
     );
     return store;
 }
