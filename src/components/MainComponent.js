@@ -9,6 +9,7 @@ import Contact from './ContactComponent';
 import About from './AboutComponent';
 import { connect } from 'react-redux';
 import { addComment, fetchDishes } from '../redux/ActionCreaters';
+import { actions } from 'react-redux-form';
 
 // Using this function to access all the defined property inside the function as props to Main Component
 const mapStateToProps = (state) => {
@@ -22,7 +23,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => ({
   addComment : (dishId,rating,author,comment) => dispatch(addComment(dishId,rating,author,comment)),
-  fetchDishes : () => {dispatch(fetchDishes())}
+  fetchDishes : () => {dispatch(fetchDishes())},
+  // reset a react redux form with a model = 'feedback'
+  resetFeedbackForm : () => {dispatch(actions.reset('feedback'))}
 });
 
 class Main extends Component {
@@ -62,7 +65,7 @@ class Main extends Component {
         <Route exact path="/aboutus" component={()=> <About leaders={this.props.leaders}/>}/>
         <Route exact path="/menu" component={() => <Menu dishes={this.props.dishes} isLoading={this.props.dishes.isLoading} errMess={this.props.dishes.errMess}/>} />
         <Route path="/menu/:dishId" component={DishWithId}/>
-        <Route exact path="/contactus" component={Contact} />
+        <Route exact path="/contactus" component={() =>  <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
         <Redirect to="/home" />
       </Switch>
       <Footer />

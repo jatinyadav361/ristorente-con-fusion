@@ -88,7 +88,7 @@ class CommentForm extends Component {
                             <Row className="form-group">
                                 <Col>
                                     <Label for="rating">Rating</Label>
-                                    <Control component="select" className="form-control" model=".rating" name="rating" 
+                                    <Control.select className="form-control" model=".rating" name="rating" 
                                         id="rating">
                                         <option>Select Rating</option>
                                         <option>1</option>
@@ -96,13 +96,13 @@ class CommentForm extends Component {
                                         <option>3</option>
                                         <option>4</option>
                                         <option>5</option>
-                                    </Control>
+                                    </Control.select>
                                 </Col>
                             </Row>
                             <Row className="form-group">
                                 <Col>
                                     <Label for="author">Your Name</Label>
-                                    <Control className="form-control" model=".author" name="author" id="author"
+                                    <Control.text className="form-control" model=".author" name="author" id="author"
                                         placeholder="Your Name"
                                         validators={
                                             {
@@ -122,7 +122,7 @@ class CommentForm extends Component {
                             <Row className="form-group">
                                 <Col>
                                     <Label for="rating">Comment</Label>
-                                    <Control component="textarea" className="form-control" model=".comment" name="comment"
+                                    <Control.textarea className="form-control" model=".comment" name="comment"
                                         id="comment" rows="6" />
                                 </Col>
                             </Row>

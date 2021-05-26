@@ -6,7 +6,8 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 //applyMiddleware() sets up a middleware pipeline and returns a store enhancer that is passed to createStore()
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
-
+import {createForms} from 'react-redux-form';
+import { InitialFeedback } from './forms';
 
 // Configuring react store
 export const configureStore = () => {
@@ -17,7 +18,11 @@ export const configureStore = () => {
             dishes : Dishes,
             comments : Comments,
             leaders : Leaders,
-            promotions : Promotions
+            promotions : Promotions,
+            //adding the forms to redux store
+            ...createForms({
+                feedback : InitialFeedback,
+            })
         }),
         applyMiddleware(thunk,logger),
     );
