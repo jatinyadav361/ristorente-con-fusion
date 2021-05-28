@@ -89,3 +89,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 # React Transitions
 `npm install react-transition-group@2.3.0 --save`
+`yarn add react-animation-components@3.0.0`
+`yarn add prop-types@15.6.0`
