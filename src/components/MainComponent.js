@@ -8,7 +8,7 @@ import Footer from './FooterComponene';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
 import { connect } from 'react-redux';
-import { postComment, fetchDishes, fetchComments, fetchPromos } from '../redux/ActionCreaters';
+import { postComment, fetchDishes, fetchComments, fetchPromos, fetchLeaders, postFeedback } from '../redux/ActionCreaters';
 import { actions } from 'react-redux-form';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
@@ -29,6 +29,8 @@ const mapDispatchToProps = dispatch => ({
   resetFeedbackForm : () => {dispatch(actions.reset('feedback'))},
   fetchComments : () => {dispatch(fetchComments())},
   fetchPromos : () => {dispatch(fetchPromos())},
+  fetchLeaders : () => {dispatch(fetchLeaders())},
+  postFeedback : (firstname,lastname,telnum,email,agree,contactType,message) => {dispatch(postFeedback(firstname,lastname,telnum,email,agree,contactType,message))}
 });
 
 class Main extends Component {
@@ -37,6 +39,7 @@ class Main extends Component {
     this.props.fetchDishes();
     this.props.fetchComments();
     this.props.fetchPromos();
+    this.props.fetchLeaders();
   }
 
   render() {
@@ -46,7 +49,9 @@ class Main extends Component {
         <Home dish={this.props.dishes.dishes.filter((dish) => dish.featured)[0]} 
           dishesLoading={this.props.dishes.isLoading}
           dishesErrMess={this.props.dishes.errMess}
-          leader={this.props.leaders.filter((lead) => lead.featured)[0]} 
+          leader={this.props.leaders.leaders.filter((lead) => lead.featured)[0]}
+          leaderLoading = {this.props.leaders.isLoading}
+          leaderErrMess = {this.props.leaders.errMess}
           promotion={this.props.promotions.promotions.filter((promo) => promo.featured)[0]} 
           promoLoading={this.props.promotions.isLoading}
           promoErrMess={this.props.promotions.errMess}
@@ -73,10 +78,10 @@ class Main extends Component {
         <CSSTransition key={this.props.location.key} classNames="page" timeout={400}>
           <Switch location={this.props.location}>
             <Route path="/home" component={HomePage} />
-            <Route exact path="/aboutus" component={()=> <About leaders={this.props.leaders}/>}/>
+            <Route exact path="/aboutus" component={()=> <About leaders={this.props.leaders.leaders} isLoading={this.props.leaders.isLoading} errMess={this.props.leaders.errMess}/>}/>
             <Route exact path="/menu" component={() => <Menu dishes={this.props.dishes} isLoading={this.props.dishes.isLoading} errMess={this.props.dishes.errMess}/>} />
             <Route path="/menu/:dishId" component={DishWithId}/>
-            <Route exact path="/contactus" component={() =>  <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
+            <Route exact path="/contactus" component={() =>  <Contact resetFeedbackForm={this.props.resetFeedbackForm} postFeedback={this.props.postFeedback} />} />
             <Redirect to="/home" />
           </Switch>
         </CSSTransition>

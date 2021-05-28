@@ -159,3 +159,84 @@ export const promosFailed = (errMess) => ({
     type : ActionTypes.PROMOS_FAILED,
     payload : errMess
 });
+
+//leaders
+export const fetchLeaders = () => (dispatch) => {
+    dispatch(leadersLoading(true));
+
+    return fetch(baseUrl+'leaders')
+                .then(response => {
+                    if(response.ok) {
+                        return response;
+                    }
+                    else {
+                        var error = new Error('Error'+ response.status+ ': ' + response.statusText);
+                        error.response = response;
+                        throw error;
+                    }
+                }, error => {
+                    var errMess = new Error('Error:' + error.message);
+                    throw errMess;
+                })
+                .then(response => response.json())
+                .then(leaders => dispatch(addLeaders(leaders)))
+                .catch(error => dispatch(leadersFailed(error.message)));
+}
+
+export const leadersLoading = () => ({
+    type : ActionTypes.LEADERS_LOADING
+});
+
+export const addLeaders = (leaders) => ({
+    type : ActionTypes.ADD_LEADERS,
+    payload : leaders
+});
+
+export const leadersFailed = (errMess) => ({
+    type : ActionTypes.LEADERS_FAILED,
+    payload : errMess
+});
+
+
+// add feedback
+
+export const postFeedback = (firstname,lastname,telnum,email,agree,contactType,message) => (dispatch) => {
+    const newFeedback = {
+        firstname : firstname,
+        lastname : lastname,
+        telnum : telnum,
+        email : email,
+        agree : agree,
+        contactType : contactType,
+        message : message
+    }
+
+    newFeedback.date = new Date().toISOString();
+    
+    return fetch(baseUrl+'feedback', {
+        method : 'POST',
+        body : JSON.stringify(newFeedback),
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        credentials : "same-origin"
+    }).then(response => {
+        console.log(response);
+        if(response.ok) {
+            return response;
+        }
+        else {
+            var error = new Error('Error'+ response.status+ ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    }, error => {
+        var errMes = new Error('Error'+ error.message);
+        throw errMes;
+    })
+    .then(response => response.json())
+    .then(response => {
+        console.log('Submitted Feedback: '+response);
+        alert('Submitted Feedback: '+ JSON.stringify(response));
+    }).catch((error) => alert("Your form cannot be submitted\nError: "+ error.message));
+}
