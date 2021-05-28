@@ -83,3 +83,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
     Declarative programming: telling the “machine”1 what you would like to happen, and let the computer figure out how to do it.
     http://latentflip.com/imperative-vs-declarative#examples-of-imperative-and-declarative-code
 ```
+
+# Start a json-server
+`json-server --watch db.json -d 2000 -p 3001`

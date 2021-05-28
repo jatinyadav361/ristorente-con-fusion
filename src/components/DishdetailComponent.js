@@ -4,6 +4,7 @@ import {Card, CardBody, CardImg, CardTitle, CardText, Breadcrumb ,BreadcrumbItem
 import {Link} from 'react-router-dom';
 import { LocalForm, Control , Errors } from "react-redux-form";
 import Loading from "./LoadingComponent";
+import {baseUrl} from '../shared/baseUrl';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -14,7 +15,7 @@ function DishItemCard({dish}) {
     return (
         <div className="col-12 col-md-5 m-1">
             <Card>
-                <CardImg src={dish.image}></CardImg>
+                <CardImg src={baseUrl+ dish.image}></CardImg>
                 <CardBody>
                     <CardTitle>{dish.name}</CardTitle>
                     <CardText>{dish.description}</CardText>
