@@ -86,3 +86,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 # Start a json-server
 `json-server --watch db.json -d 2000 -p 3001`
+
+# React Transitions
+`npm install react-transition-group@2.3.0 --save`
